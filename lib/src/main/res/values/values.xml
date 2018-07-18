@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">lib</string>
+
+    <dimen name="def_dot_min_radius">4dp</dimen>
+    <dimen name="def_dot_max_radius">8dp</dimen>
+    <dimen name="def_dot_gap">8dp</dimen>
+
+    <color name="def_dot_color">#ffffff</color>
+
+    <dimen name="def_bar_height">4dp</dimen>
+    <dimen name="def_bar_min_width">6dp</dimen>
+    <dimen name="def_bar_max_width">12dp</dimen>
+    <dimen name="def_bar_gap">4dp</dimen>
+
+    <color name="def_bar_color">#ffffff</color>
+
+    <declare-styleable name="BarViewPagerIndicaor">
+        <attr name="bvpi_bar_height" format="dimension"/>
+        <attr name="bvpi_bar_min_width" format="dimension"/>
+        <attr name="bvpi_bar_max_width" format="dimension"/>
+        <attr name="bvpi_color" format="color"/>
+        <attr name="bvpi_bar_gap" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="DotViewPagerIndicator">
+        <attr name="dvpi_min_radius" format="dimension"/>
+        <attr name="dvpi_max_radius" format="dimension"/>
+        <attr name="dvpi_dot_gap" format="dimension"/>
+        <attr name="dvpi_acceleration" format="float"/>
+        <attr name="dvpi_color" format="color"/>
+    </declare-styleable>
+</resources>
