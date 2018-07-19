@@ -21,9 +21,25 @@ class MainActivity : AppCompatActivity() {
         vp_second.adapter = CustomViewPagerAdapter()
         vpi_second.setupWithViewPager(vp_second)
 
+        vp_second2.adapter = CustomViewPagerAdapter()
+        vpi_second2.setupWithViewPager(vp_second2)
+
+        vp_third.adapter = CustomViewPagerAdapter()
+        vpi_third.setupWithViewPager(vp_third)
+
+        vp_fourth.adapter = CustomViewPagerAdapter()
+        vpi_fourth.setupWithViewPager(vp_fourth)
+
+        vp_fifth.adapter = CustomViewPagerAdapter()
+        vpi_fifth.setupWithViewPager(vp_fifth)
+
         btn_change_adapter.setOnClickListener {
             vp_first.adapter = CustomViewPagerAdapter()
             vp_second.adapter = CustomViewPagerAdapter()
+            vp_second2.adapter = CustomViewPagerAdapter()
+            vp_third.adapter = CustomViewPagerAdapter()
+            vp_fourth.adapter = CustomViewPagerAdapter()
+            vp_fifth.adapter = CustomViewPagerAdapter()
         }
     }
 

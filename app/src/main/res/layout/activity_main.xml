@@ -1,72 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/fl_first"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/vp_first"
+        <FrameLayout
+            android:id="@+id/fl_first"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Hello World!"
-            />
+            android:layout_height="120dp">
 
-        <com.tlz.viewpagerindicator.dot.DotViewPagerIndicator
-            android:id="@+id/vpi_first"
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_first"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hello World!"
+                />
+
+            <com.tlz.viewpagerindicator.dot.DotViewPagerIndicator
+                android:id="@+id/vpi_first"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="10dp"
+                app:dvpi_color="#000000"/>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_second"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="16dp">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_second"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hello World!"
+                />
+
+            <com.tlz.viewpagerindicator.bar.BarViewPagerIndicator
+                android:id="@+id/vpi_second"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="10dp"
+                app:bvpi_color="#000000"/>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_second2"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="16dp">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_second2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hello World!"
+                />
+
+            <com.tlz.viewpagerindicator.bar.BarViewPagerIndicator
+                android:id="@+id/vpi_second2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="10dp"
+                app:bvpi_scale_direction="center"
+                app:bvpi_color="#000000"/>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_third"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="16dp">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_third"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hello World!"
+                />
+
+            <com.tlz.viewpagerindicator.color.ColorViewPagerIndicator
+                android:id="@+id/vpi_third"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="10dp"
+                app:cvpi_color="#747474"
+                app:cvpi_select_color="#000000"
+                app:cvpi_shape="circle"/>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_fourth"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="16dp">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_fourth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hello World!"
+                />
+
+            <com.tlz.viewpagerindicator.color.ColorViewPagerIndicator
+                android:id="@+id/vpi_fourth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="10dp"
+                app:cvpi_color="#747474"
+                app:cvpi_select_color="#000000"
+                app:cvpi_shape="square"/>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_fifth"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="16dp">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_fifth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hello World!"
+                />
+
+            <com.tlz.viewpagerindicator.color.ColorViewPagerIndicator
+                android:id="@+id/vpi_fifth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="10dp"
+                app:cvpi_color="#747474"
+                app:cvpi_round="2dp"
+                app:cvpi_select_color="#000000"
+                app:cvpi_shape="round"/>
+
+        </FrameLayout>
+
+
+        <Button
+            android:id="@+id/btn_change_adapter"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="10dp"
-            app:dvpi_color="#000000"/>
+            android:layout_marginTop="10dp"
+            android:text="更改适配器"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fl_third"/>
 
-    </FrameLayout>
+    </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/fl_second"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fl_first">
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/vp_second"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Hello World!"
-            />
-
-        <com.tlz.viewpagerindicator.bar.BarViewPagerIndicaor
-            android:id="@+id/vpi_second"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="10dp"
-            app:bvpi_color="#000000"/>
-
-    </FrameLayout>
-
-    <Button
-        android:id="@+id/btn_change_adapter"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="更改适配器"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fl_second"/>
-
-</android.support.constraint.ConstraintLayout>
+</android.support.v4.widget.NestedScrollView>

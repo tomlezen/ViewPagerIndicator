@@ -4,7 +4,7 @@
 
     <dimen name="def_dot_min_radius">4dp</dimen>
     <dimen name="def_dot_max_radius">8dp</dimen>
-    <dimen name="def_dot_gap">8dp</dimen>
+    <dimen name="def_dot_gap">8dp</dimen>正方形
 
     <color name="def_dot_color">#ffffff</color>
 
@@ -15,13 +15,12 @@
 
     <color name="def_bar_color">#ffffff</color>
 
-    <declare-styleable name="BarViewPagerIndicaor">
-        <attr name="bvpi_bar_height" format="dimension"/>
-        <attr name="bvpi_bar_min_width" format="dimension"/>
-        <attr name="bvpi_bar_max_width" format="dimension"/>
-        <attr name="bvpi_color" format="color"/>
-        <attr name="bvpi_bar_gap" format="color"/>
-    </declare-styleable>
+    <dimen name="def_color_size">6dp</dimen>
+    <dimen name="def_color_gap">4dp</dimen>
+    <dimen name="def_color_round">2dp</dimen>
+
+    <color name="def_color_normal">#7c7c7c</color>
+    <color name="def_color_select">#ffffff</color>
 
     <declare-styleable name="DotViewPagerIndicator">
         <attr name="dvpi_min_radius" format="dimension"/>
@@ -29,5 +28,30 @@
         <attr name="dvpi_dot_gap" format="dimension"/>
         <attr name="dvpi_acceleration" format="float"/>
         <attr name="dvpi_color" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="BarViewPagerIndicator">
+        <attr name="bvpi_bar_height" format="dimension"/>
+        <attr name="bvpi_bar_min_width" format="dimension"/>
+        <attr name="bvpi_bar_max_width" format="dimension"/>
+        <attr name="bvpi_color" format="color"/>
+        <attr name="bvpi_bar_gap" format="color"/>
+        <attr name="bvpi_scale_direction">
+            <enum name="side" value="0" />
+            <enum name="center" value="1" />
+        </attr>
+    </declare-styleable>
+    
+    <declare-styleable name="ColorViewPagerIndicator">
+        <attr name="cvpi_shape">
+            <enum name="circle" value="0" />
+            <enum name="square" value="1" />
+            <enum name="round" value="2" />
+        </attr>
+        <attr name="cvpi_color" format="color" />
+        <attr name="cvpi_select_color" format="color" />
+        <attr name="cvpi_size" format="dimension" />
+        <attr name="cvpi_gap" format="dimension" />
+        <attr name="cvpi_round" format="dimension" />
     </declare-styleable>
 </resources>
