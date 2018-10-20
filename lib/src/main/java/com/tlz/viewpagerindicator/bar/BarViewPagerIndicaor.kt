@@ -110,7 +110,7 @@ class BarViewPagerIndicator(ctx: Context, attrs: AttributeSet) : ViewPagerIndica
     }
 
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-        if (items.isNotEmpty()) {
+        if (items.size > 1) {
             if (position < items.size - 1) {
                 when (barScaleDirct) {
                     0 -> {

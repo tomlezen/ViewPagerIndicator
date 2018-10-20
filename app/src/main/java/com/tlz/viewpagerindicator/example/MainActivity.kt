@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
 
     class CustomViewPagerAdapter : PagerAdapter() {
 
-        var itemCount = Random().nextInt(4) + 4
+        var itemCount = 1
 
         override fun isViewFromObject(view: View, `object`: Any): Boolean = view == `object`
 

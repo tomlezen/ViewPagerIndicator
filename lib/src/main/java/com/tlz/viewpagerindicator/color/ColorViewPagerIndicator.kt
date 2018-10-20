@@ -99,7 +99,7 @@ class ColorViewPagerIndicator(ctx: Context, attrs: AttributeSet) : ViewPagerIndi
     }
 
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-        if (items.isNotEmpty()) {
+        if (items.size > 1) {
             if (position < items.size - 1) {
                 items[position + 1].color = getColorByFraction(positionOffset)
                 items[position].color = getColorByFraction(1 - positionOffset)
