@@ -35,17 +35,41 @@ class MainActivity : AppCompatActivity() {
 
         btn_change_adapter.setOnClickListener {
             vp_first.adapter = CustomViewPagerAdapter()
+//            (vp_first.adapter as CustomViewPagerAdapter).apply {
+//                itemCount = 10
+//                notifyDataSetChanged()
+//            }
             vp_second.adapter = CustomViewPagerAdapter()
+//            (vp_second.adapter as CustomViewPagerAdapter).apply {
+//                itemCount = 10
+//                notifyDataSetChanged()
+//            }
             vp_second2.adapter = CustomViewPagerAdapter()
+//            (vp_second2.adapter as CustomViewPagerAdapter).apply {
+//                itemCount = 10
+//                notifyDataSetChanged()
+//            }
             vp_third.adapter = CustomViewPagerAdapter()
+//            (vp_third.adapter as CustomViewPagerAdapter).apply {
+//                itemCount = 10
+//                notifyDataSetChanged()
+//            }
             vp_fourth.adapter = CustomViewPagerAdapter()
+//            (vp_fourth.adapter as CustomViewPagerAdapter).apply {
+//                itemCount = 10
+//                notifyDataSetChanged()
+//            }
             vp_fifth.adapter = CustomViewPagerAdapter()
+//            (vp_fifth.adapter as CustomViewPagerAdapter).apply {
+//                itemCount = 10
+//                notifyDataSetChanged()
+//            }
         }
     }
 
     class CustomViewPagerAdapter : PagerAdapter() {
 
-        private val itemCount = Random().nextInt(4) + 4
+        var itemCount = Random().nextInt(4) + 4
 
         override fun isViewFromObject(view: View, `object`: Any): Boolean = view == `object`
 

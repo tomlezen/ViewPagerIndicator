@@ -1,6 +1,5 @@
 package com.tlz.viewpagerindicator.bar
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
@@ -17,7 +16,7 @@ import com.tlz.viewpagerindicator.ViewPagerIndicator
  * Data: 2018/7/18.
  * Time: 15:34.
  */
-class BarViewPagerIndicator(ctx: Context, attrs: AttributeSet) : ViewPagerIndicator(ctx, attrs) {
+class BarViewPagerIndicator(ctx: Context, attrs: AttributeSet) : ViewPagerIndicator<RectF>(ctx, attrs) {
 
     private val barScaleDirct: Int
     private val barHeight: Float
@@ -30,8 +29,6 @@ class BarViewPagerIndicator(ctx: Context, attrs: AttributeSet) : ViewPagerIndica
         get() = barMaxWidth - barMinWidth
 
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-
-    private val bars = mutableListOf<RectF>()
 
     init {
         val ta = resources.obtainAttributes(attrs, R.styleable.BarViewPagerIndicator)
@@ -72,72 +69,65 @@ class BarViewPagerIndicator(ctx: Context, attrs: AttributeSet) : ViewPagerIndica
         setMeasuredDimension(widthSize, heightSize)
     }
 
-    @SuppressLint("DrawAllocation")
-    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
-        super.onLayout(changed, left, top, right, bottom)
-        if (changed || bars.isEmpty()) {
-            bars.clear()
-            val itemCount = viewPager?.adapter?.count ?: 0
-            if (itemCount > 0) {
-                val currentItem = viewPager?.currentItem ?: 0
-                // 计算各个点的位置.
-                val y = height / 2f
-                when (barScaleDirct) {
-                    0 -> {
-                        var startX = width / 2 - ((barGap + barMinWidth) * (itemCount - 1) + barMaxWidth) / 2f
-                        (0 until itemCount).mapTo(bars, {
-                            val l = startX
-                            val r = l + if (currentItem == it) barMaxWidth else barMinWidth
-                            startX = r + barGap
-                            RectF(l, y - barHeight / 2, r, y + barHeight / 2)
-                        })
-                    }
-                    else -> {
-                        var startX = width / 2 - ((barGap + barMaxWidth / 2 + barMinWidth / 2) * (itemCount - 1) + barMaxWidth) / 2f + barMaxWidth / 2
-                        (0 until itemCount).mapTo(bars, {
-                            val d = (if (currentItem == it) barMaxWidth else barMinWidth) / 2
-                            val l = startX - d
-                            val r = startX + d
-                            startX += barMaxWidth / 2 + barMinWidth / 2 + barGap
-                            RectF(l, y - barHeight / 2, r, y + barHeight / 2)
-                        })
-                    }
-                }
-
+    override fun onCustomDraw(cvs: Canvas) {
+        if (viewPager != null && viewPager?.adapter?.count ?: 0 > 0) {
+            items.forEach {
+                cvs.drawRoundRect(it, barHeight / 2f, barHeight / 2f, paint)
             }
         }
     }
 
-    override fun onDraw(canvas: Canvas?) {
-        super.onDraw(canvas)
-        canvas?.let { cvs ->
-            if (viewPager != null && viewPager?.adapter?.count ?: 0 > 0) {
-                bars.forEach {
-                    cvs.drawRoundRect(it, barHeight / 2f, barHeight / 2f, paint)
+    override fun calculate() {
+        items.clear()
+        val itemCount = viewPager?.adapter?.count ?: 0
+        if (itemCount > 0) {
+            val currentItem = viewPager?.currentItem ?: 0
+            // 计算各个点的位置.
+            val y = height / 2f
+            when (barScaleDirct) {
+                0 -> {
+                    var startX = width / 2 - ((barGap + barMinWidth) * (itemCount - 1) + barMaxWidth) / 2f
+                    (0 until itemCount).mapTo(items) {
+                        val l = startX
+                        val r = l + if (currentItem == it) barMaxWidth else barMinWidth
+                        startX = r + barGap
+                        RectF(l, y - barHeight / 2, r, y + barHeight / 2)
+                    }
+                }
+                else -> {
+                    var startX = width / 2 - ((barGap + barMaxWidth / 2 + barMinWidth / 2) * (itemCount - 1) + barMaxWidth) / 2f + barMaxWidth / 2
+                    (0 until itemCount).mapTo(items) {
+                        val d = (if (currentItem == it) barMaxWidth else barMinWidth) / 2
+                        val l = startX - d
+                        val r = startX + d
+                        startX += barMaxWidth / 2 + barMinWidth / 2 + barGap
+                        RectF(l, y - barHeight / 2, r, y + barHeight / 2)
+                    }
                 }
             }
+
         }
     }
 
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-        if (bars.isNotEmpty()) {
-            if (position < bars.size - 1) {
+        if (items.isNotEmpty()) {
+            if (position < items.size - 1) {
                 when (barScaleDirct) {
                     0 -> {
-                        bars[position + 1].apply {
+                        items[position + 1].apply {
                             set(right - barMinWidth - widthOffset * positionOffset, top, right, bottom)
                         }
-                        bars[position].apply {
+                        items[position].apply {
                             set(left, top, left + barMinWidth + widthOffset * (1 - positionOffset), bottom)
                         }
                     }
                     else -> {
-                        bars[position + 1].apply {
+                        items[position + 1].apply {
                             val centerX = centerX()
                             val d = (widthOffset * positionOffset + barMinWidth) / 2
                             set(centerX - d, top, centerX + d, bottom)
                         }
-                        bars[position].apply {
+                        items[position].apply {
                             val centerX = centerX()
                             val d = (widthOffset * (1 - positionOffset) + +barMinWidth) / 2
                             set(centerX - d, top, centerX + d, bottom)
@@ -147,19 +137,19 @@ class BarViewPagerIndicator(ctx: Context, attrs: AttributeSet) : ViewPagerIndica
             } else {
                 when (barScaleDirct) {
                     0 -> {
-                        bars[position].apply {
+                        items[position].apply {
                             set(right - barMinWidth - widthOffset, top, right, bottom)
                         }
-                        bars[position - 1].apply {
+                        items[position - 1].apply {
                             set(left, top, left + barMinWidth, bottom)
                         }
                     }
                     else -> {
-                        bars[position].apply {
+                        items[position].apply {
                             val centerX = centerX()
                             set(centerX - barMaxWidth / 2, top, centerX + barMaxWidth / 2, bottom)
                         }
-                        bars[position - 1].apply {
+                        items[position - 1].apply {
                             val centerX = centerX()
                             set(centerX - barMinWidth / 2, top, centerX + barMinWidth / 2, bottom)
                         }
@@ -173,7 +163,7 @@ class BarViewPagerIndicator(ctx: Context, attrs: AttributeSet) : ViewPagerIndica
 
     override fun onAdapterChanged(viewPager: ViewPager, oldAdapter: PagerAdapter?, newAdapter: PagerAdapter?) {
         // 清空数据
-        bars.clear()
+        items.clear()
     }
 
 }

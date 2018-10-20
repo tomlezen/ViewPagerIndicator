@@ -17,7 +17,7 @@ import com.tlz.viewpagerindicator.ViewPagerIndicator
  * Data: 2018/7/18.
  * Time: 10:49.
  */
-class DotViewPagerIndicator(ctx: Context, attrs: AttributeSet) : ViewPagerIndicator(ctx, attrs) {
+class DotViewPagerIndicator(ctx: Context, attrs: AttributeSet) : ViewPagerIndicator<PointF>(ctx, attrs) {
 
     private val minRadius: Float
     private val maxRadius: Float
@@ -31,8 +31,6 @@ class DotViewPagerIndicator(ctx: Context, attrs: AttributeSet) : ViewPagerIndica
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
 
     private val dotView = DotView()
-    private val dots = mutableListOf<PointF>()
-
 
     init {
         val ta = resources.obtainAttributes(attrs, R.styleable.DotViewPagerIndicator)
@@ -75,59 +73,58 @@ class DotViewPagerIndicator(ctx: Context, attrs: AttributeSet) : ViewPagerIndica
     @SuppressLint("DrawAllocation")
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
-        if (changed) {
-            dots.clear()
-            val itemCount = viewPager?.adapter?.count ?: 0
-            if (itemCount > 0) {
-                val currentItem = viewPager?.currentItem ?: 0
-                // 计算各个点的位置.
-                // 点到点中心距离
-                val dist = minRadius * 2 + gap
-                val y = height / 2f
-                // 得到最左边开始绘制的中心点.
-                val startX = width / 2 - dist * (itemCount - 1) / 2f
-                (0 until itemCount).mapTo(dots, {
-                    PointF(startX + dist * it, y).apply {
-                        // 如果时ViewPager选择的位置，则初始化dot的位置.
-                        if (it == currentItem) {
-                            dotView.headPoint.x = x
-                            dotView.headPoint.y = y
-                            dotView.headPoint.radius = maxRadius
-                            dotView.footPoint.x = x
-                            dotView.footPoint.y = y
-                            dotView.footPoint.radius = maxRadius
-                        }
-                    }
-                })
+        calculate()
+    }
+
+    override fun onCustomDraw(cvs: Canvas) {
+        if (viewPager != null && viewPager?.adapter?.count ?: 0 > 0) {
+            // 绘制圆点
+            items.forEach {
+                cvs.drawCircle(it.x, it.y, minRadius, paint)
             }
+
+            dotView.onDraw(cvs)
         }
     }
 
-    override fun onDraw(canvas: Canvas?) {
-        super.onDraw(canvas)
-        canvas?.let { cvs ->
-            if (viewPager != null && viewPager?.adapter?.count ?: 0 > 0) {
-                // 绘制圆点
-                dots.forEach {
-                    cvs.drawCircle(it.x, it.y, minRadius, paint)
+    override fun calculate() {
+        items.clear()
+        val itemCount = viewPager?.adapter?.count ?: 0
+        if (itemCount > 0) {
+            val currentItem = viewPager?.currentItem ?: 0
+            // 计算各个点的位置.
+            // 点到点中心距离
+            val dist = minRadius * 2 + gap
+            val y = height / 2f
+            // 得到最左边开始绘制的中心点.
+            val startX = width / 2 - dist * (itemCount - 1) / 2f
+            (0 until itemCount).mapTo(items) {
+                PointF(startX + dist * it, y).apply {
+                    // 如果时ViewPager选择的位置，则初始化dot的位置.
+                    if (it == currentItem) {
+                        dotView.headPoint.x = x
+                        dotView.headPoint.y = y
+                        dotView.headPoint.radius = maxRadius
+                        dotView.footPoint.x = x
+                        dotView.footPoint.y = y
+                        dotView.footPoint.radius = maxRadius
+                    }
                 }
-
-                dotView.onDraw(cvs)
             }
         }
     }
 
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-        if (dots.isNotEmpty()) {
-            if (position < dots.size - 1) {
+        if (items.isNotEmpty()) {
+            if (position < items.size - 1) {
                 dotView.headPoint.radius = minRadius + positionOffset * radiusOffset
                 dotView.footPoint.radius = minRadius + (1 - positionOffset) * radiusOffset
 
-                dotView.headPoint.x = dots[position + 1].x
-                dotView.footPoint.x = dots[position].x
+                dotView.headPoint.x = items[position + 1].x
+                dotView.footPoint.x = items[position].x
             } else {
-                dotView.headPoint.x = dots[position].x
-                dotView.footPoint.x = dots[position].x
+                dotView.headPoint.x = items[position].x
+                dotView.footPoint.x = items[position].x
                 dotView.headPoint.radius = maxRadius
                 dotView.footPoint.radius = maxRadius
             }
